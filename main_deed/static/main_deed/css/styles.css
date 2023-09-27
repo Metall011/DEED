@@ -1,0 +1,167 @@
+@font-face {
+  font-family: Roboto;
+  src: url("../fonts/Roboto/Roboto-Regular.ttf") format("truetype");
+  font-weight: 400;
+}
+
+html, body {
+    font-family: Roboto;
+    margin: 0;
+    padding: 0;
+    height: 100%;
+    color: #fff;
+    background: #333;
+}
+
+::selection {
+  background: #f5cf00;
+  color: black;
+}
+
+.main {
+    padding-bottom: 70px;
+}
+
+.textarticle {
+    overflow: hidden;
+    width: 100%;
+    text-align: left;
+}
+
+.textarticle h1, h2, h3, p, hr {
+    padding-left: 25px;
+    padding-right: 25px;
+}
+
+.textarticle h2 {
+    padding-top: 25px;
+}
+.textarticle button {
+    text-decoration: none;
+    border-radius: 10px;
+    border: 0px;
+}
+
+.textarticle img {
+    -webkit-box-shadow: 0 0 5px 1px #1e1e1e;
+    border: 1px solid #353535;
+    border-radius: 10px;
+}
+
+.img-article {
+    max-width: 75%;
+    max-height: 450px;
+}
+
+.date {
+    color: #c0c0c0;
+
+}
+
+
+.navbar {
+    background-color: #424242;
+    overflow: hidden;
+    position: fixed;
+    bottom: 0;
+    width: 100%;
+    text-align: center;
+}
+
+
+.navbar a, .soc-net a, .categories a, .btm a {
+    float: none;
+    display: inline-block;
+    color: #f2f2f2;
+    padding: 8px 10px;
+    text-decoration: none;
+    font-size: 12px;
+}
+
+.soc-net a {
+    padding: 8px 0px;
+}
+
+a:hover, button:hover {
+    background-color: #f5cf00;
+    color: black;
+    border-radius: 10px;
+}
+
+.navbar img {
+    width: 70%;
+}
+
+
+.categories a.selected {
+    background-color: #fff;
+    color: black;
+    border-radius: 10px;
+}
+
+
+.soc-net, .categories {
+    overflow: hidden;
+    bottom: 0;
+    width: 100%;
+    text-align: center;
+}
+
+
+.soc-net  img {
+    width: 40%;
+}
+
+
+.headimg img {
+    width: 100%;
+    text-align: center;
+}
+
+
+.apps.text {
+    display: inline-block;
+    background-color: #969696;
+
+}
+
+.apps a{
+    display: inline-block;
+    float: none;
+    color: #f2f2f2;
+    padding: 8px 15px;
+    text-decoration: none;
+    font-size: 20px;
+}
+
+.apps.img {
+    float: right;
+    text-align: center;
+    background-color: silver;
+    vertical-align: middle
+}
+
+.btm.left, .btm.right {
+    text-align: center;
+    padding: 0px 25px 75px 25px;
+}
+
+.btm.left {
+    float: left;
+}
+.btm.right {
+    float: right;
+}
+
+/* Формы заполнения */
+
+.form-label {
+    float: left;
+}
+
+.form-error {
+    background-color: red;
+    border-radius: 10px;
+}
+
+

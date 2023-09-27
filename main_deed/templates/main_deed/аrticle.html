@@ -1,0 +1,45 @@
+{% extends 'main_deed/base.html' %}
+{% load static %}
+
+{% block content %}
+
+<div class="textarticle">
+        <h1 align="center">{{ article.title }}</h1>
+        <hr>
+    <p>{{ article.content|linebreaks }}</p>
+
+
+    {% if article.photo %}
+        <p align="center"><img class="img-article" src={{ article.photo.url }}></p>
+    {% endif %}
+
+
+    <p class="date">Категория: {{ article.cat }}<br>
+        Создана: {{ article.time_create }}<br>
+        Обновлена: {{ article.time_update }}
+    </p>
+    <hr>
+</div>
+
+
+<div class="btm left">
+    {% if near_articles.last %}
+        <a href="{{ near_articles.last.get_absolute_url }}">
+            <img src="{% static 'main_deed/images/icon-last.png' %}">
+            <br>Прошлая
+        </a>
+    {% endif %}
+</div>
+
+<div class="btm right">
+        {% if near_articles.next %}
+            <a href="{{ near_articles.next.get_absolute_url }}">
+                <img src="{% static 'main_deed/images/icon-next.png' %}">
+                <br>Следующая
+            </a>
+        {% endif %}
+</div>
+
+{% endblock %}
+
+

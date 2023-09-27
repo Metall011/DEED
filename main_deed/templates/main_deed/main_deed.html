@@ -1,0 +1,33 @@
+{% extends 'main_deed/base.html' %}
+{% load static %}
+
+{% block content %}
+
+<div class="apps">
+    <a href="#">
+        <dvi class="apps text">
+            <h2>Английский по карточкам</h2>
+            <p>Изучай новые слова по системе карточек</p>
+        </dvi>
+        <div class="apps img">
+        <img src="{% static 'main_deed/images/about.png' %}">
+        </div>
+    </a>
+    <hr>
+    <a href="#">
+        <h2>Цели и достижения</h2>
+        <p>Отслеживай свои задачи и достижения</p>
+        <img src="{% static 'main_deed/images/about.png' %}">
+    </a>
+    <hr>
+</div>
+
+    
+    
+    
+    <div class="soc-net">
+    <a href="{% url 'addpost' %}">Добавить пост</a>
+    </div>
+
+
+{% endblock %}

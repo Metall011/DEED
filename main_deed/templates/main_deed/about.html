@@ -1,0 +1,64 @@
+{% extends 'main_deed/base.html' %}
+{% load static %}
+{% load main_deed_tags %}
+
+{% block content %}
+
+
+<div class="headimg">
+    <img src="{% static 'main_deed/images/deed_full.png' %}" alt="DEED">
+</div>
+
+
+<div class="textarticle">
+    <h1>DEED - это проект, который помогает добиваться результатов.</h1>
+    <p>На данный момент мы ведем open source разработку нашего приложения для андроид устройств.
+    <br>Первой фичей мы собираемся сделать возможность изучения английского по карточкам.</p>
+</div>
+
+
+<div class="soc-net">
+    <h2>МЫ В СОЦСЕТЯХ:</h2>
+    <a href="https://github.com/Metall011/DEED">
+        <img src="{% static 'main_deed/images/soc_net/icon-github.png' %}" />
+        <br>GitHub </a>
+    <a href="#">
+        <img src="{% static 'main_deed/images/soc_net/icon-vk.png' %}" />
+        <br>VK </a>
+    <a href="#">
+        <img src="{% static 'main_deed/images/soc_net/icon-youtube.png' %}" />
+        <br>YouTube </a>
+</div>
+
+
+<div class="textarticle">
+<h2 align="center">ПОСТЫ:</h2>
+
+<div class="categories">
+{% if cat_selected == 0 %}
+    <a class="selected">Все</a>
+{% else %}
+    <a href="{% url 'about' %}">Все</a>
+{% endif %}
+
+{% show_categories sort='name' cat_selected=cat_selected %}
+
+</div>
+
+
+{% for article in articles %}
+    <h3>{{ article.title }}</h3>
+    <p>{{ article.content|linebreaks|truncatewords:30 }}</p>
+    <p class="date">{{ article.time_create|date:'d M Y' }}
+        <a href="{{ article.get_absolute_url }}"><button>Читать</button></a>
+    </p>
+    <hr>
+{% endfor %}
+
+
+</div>
+
+
+
+
+{% endblock %}

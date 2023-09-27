@@ -1,0 +1,39 @@
+{% load static %}
+{% load main_deed_tags %}
+{% get_menu as menu %}
+
+<!doctype html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport"
+          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>{{ title }}</title>
+    <link rel="stylesheet" type="text/css", href="{% static 'main_deed/css/styles.css' %}" />
+    <link rel="shortcut icon" href="{% static 'main_deed/images/main.ico' %}">
+</head>
+<body>
+
+<div class="main">
+    {% block content %}
+    {% endblock %}
+</div>
+
+
+
+{% block mainmenu %}
+<div class="navbar">
+
+{% for m in menu %}
+    <a href="{% url m.url_name %}"><img src="{% static m.src_img %}" /> <br> {{ m.title }} </a>
+{% endfor %}
+
+
+</div>
+{% endblock %}
+
+
+
+</body>
+</html>
