@@ -53,6 +53,20 @@ html, body {
     max-height: 450px;
 }
 
+.a-article {
+    text-decoration: none;
+    color: black;
+    background-color: #ffffff;
+    border-radius: 10px;
+    display: inline-block;
+    float: right;
+    text-align: center;
+    padding: 5px 5px;
+    font-size: 12px;
+
+}
+
+
 .date {
     color: #c0c0c0;
 
@@ -82,10 +96,11 @@ html, body {
     padding: 8px 0px;
 }
 
-a:hover, button:hover {
+a:hover {
     background-color: #f5cf00;
     color: black;
     border-radius: 10px;
+    transition: background-color 0.3s;
 }
 
 .navbar img {
@@ -157,6 +172,19 @@ a:hover, button:hover {
 
 .form-label {
     float: left;
+    width: 100px;
+}
+
+.btm-add-article {
+    margin: 0 auto;
+    display: block;
+}
+
+.btm-add-article:hover {
+    background-color: #f5cf00;
+    color: black;
+    border-radius: 10px;
+    transition: background-color 0.3s;
 }
 
 .form-error {

@@ -35,23 +35,28 @@
 <h2 align="center">ПОСТЫ:</h2>
 
 <div class="categories">
-{% if cat_selected == 0 %}
-    <a class="selected">Все</a>
-{% else %}
-    <a href="{% url 'about' %}">Все</a>
-{% endif %}
 
-{% show_categories sort='name' cat_selected=cat_selected %}
 
+    {% if cat_selected == 0 %}
+        <a class="selected">Все</a>
+    {% else %}
+        <a href="{% url 'about' %}">Все</a>
+    {% endif %}
+
+    {% show_categories sort='name' cat_selected=cat_selected %}
+
+    <a href="{% url 'addpost' %}">Добавить</a>
 </div>
 
 
 {% for article in articles %}
     <h3>{{ article.title }}</h3>
     <p>{{ article.content|linebreaks|truncatewords:30 }}</p>
-    <p class="date">{{ article.time_create|date:'d M Y' }}
-        <a href="{{ article.get_absolute_url }}"><button>Читать</button></a>
-    </p>
+    <div>
+        <p class="date">{{ article.time_create|date:'d M Y' }}
+            <a class="a-article" href="{{ article.get_absolute_url }}">Читать</a>
+        </p>
+    </div>
     <hr>
 {% endfor %}
 

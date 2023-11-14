@@ -1,8 +1,11 @@
 from django.http import HttpResponse, HttpResponseNotFound, Http404
 from django.shortcuts import render, redirect, get_object_or_404
+from django.urls import reverse_lazy
+from django.views.generic import ListView, DetailView, CreateView, FormView
 
 from .models import *
 from .forms import *
+
 
 def index(request):
 
@@ -13,32 +16,92 @@ def index(request):
     return render(request, 'main_deed/main_deed.html', context=context)
 
 
-def about(request):
-    articles = DeedArticles.objects.all()
+class AboutArticles(ListView):
+    model = DeedArticles
+    template_name = 'main_deed/about.html'
+    context_object_name = 'articles'
 
-    context = {
-        'title': 'О проекте',
-        'articles': articles,
-        'cat_selected': 0,
-    }
+    def get_context_data(self, *, object_list=None, **kwargs):
+        context = super().get_context_data(**kwargs)
+        context['title'] = 'О проекте'
+        context['cat_selected'] = 0
+        return context
 
-    return render(request, 'main_deed/about.html', context=context )
+    def get_queryset(self):
+        return self.model.objects.filter(is_published=True)
 
 
-def show_category(request, cat_slug):
-    category = Category.objects.filter(slug=cat_slug)[0]
-    articles = DeedArticles.objects.filter(cat_id=category.pk)
+class CategoryArticles(ListView):
+    model = DeedArticles
+    template_name = 'main_deed/about.html'
+    context_object_name = 'articles'
+    allow_empty = False
 
-    if len(articles) == 0:
-        raise Http404()
+    def get_context_data(self, *, object_list=None, **kwargs):
+        context = super().get_context_data(**kwargs)
+        context['title'] = str(context['articles'][0].cat)
+        context['cat_selected'] = context['articles'][0].cat_id
+        return context
 
-    context = {
-        'title': category.name,
-        'articles': articles,
-        'cat_selected': category.pk,
-    }
+    def get_queryset(self):
+        return self.model.objects.filter(cat__slug=self.kwargs['cat_slug'], is_published=True)
 
-    return render(request, 'main_deed/about.html', context=context)
+
+class ShowPost(DetailView):
+    model = DeedArticles
+    template_name = 'main_deed/article.html'
+    context_object_name = 'article'
+    slug_url_kwarg = 'post_slug'
+
+    def get_context_data(self, *, object_list=None, **kwargs):
+        articles = list(self.model.objects.filter(is_published=True))
+        art_index = articles.index(self.model.objects.filter(slug=self.kwargs['post_slug'])[0])
+        near_articles = {
+        'last': None if art_index == len(articles)-1 else articles[art_index+1],
+        'next': None if art_index == 0 else articles[art_index-1],
+        }
+
+        context = super().get_context_data(**kwargs)
+        context['title'] = context['article']
+        context['near_articles'] = near_articles
+
+        return context
+
+    def get_queryset(self):
+        return self.model.objects.filter(is_published=True)
+
+
+
+class AddArticle(CreateView):
+    model = DeedArticles
+    form_class = AddPostForm
+    template_name = 'main_deed/addarticle.html'
+    success_url = reverse_lazy('about')
+
+    def get_context_data(self, *, object_list=None, **kwargs):
+        context = super().get_context_data(**kwargs)
+        context['title'] = 'Добавление статьи'
+        return context
+
+
+
+
+# def addarticle(request):
+#     if request.method == 'POST':
+#         form = AddPostForm(request.POST, request.FILES)
+#         if form.is_valid():
+#             form.save()
+#             return redirect('about')
+#             form.add_error(None, 'Ошибка добавления поста')
+#     else:
+#         form = AddPostForm()
+#
+#     context = {
+#         'title': 'Добавление статьи',
+#         'form': form
+#     }
+#
+#     return render(request, 'main_deed/addarticle.html', context=context)
 
 
 def account_login(request):
@@ -47,47 +110,6 @@ def account_login(request):
     }
 
     return render(request, 'main_deed/login.html', context=context)
-
-
-def show_post(request, post_slug):
-    article = get_object_or_404(DeedArticles, slug=post_slug)
-    count_art = len(DeedArticles.objects.all())
-    number_art = DeedArticles.objects.filter(slug=post_slug)[0].pk
-
-    near_articles = {
-        'last': None if number_art == 1 else DeedArticles.objects.filter(pk=number_art-1)[0],
-        'next': None if number_art == count_art else DeedArticles.objects.filter(pk=number_art+1)[0],
-    }
-
-    context = {
-        'title': article.title,
-        'near_articles': near_articles,
-        'article': article,
-    }
-
-    return render(request, 'main_deed/аrticle.html', context=context)
-
-def addarticle(request):
-    if request.method == 'POST':
-        form = AddPostForm(request.POST)
-        if form.is_valid():
-            try:
-                DeedArticles.objects.create(**form.cleaned_data)
-                return redirect('about')
-            except:
-                form.add_error(None, 'Ошибка добавления поста')
-    else:
-        form = AddPostForm()
-
-    context = {
-        'title': 'Добавление статьи',
-        'form': form
-    }
-
-    return render(request, 'main_deed/addarticle.html', context=context)
-
-
-
 
 
 def pageNotFound(request, exception):
