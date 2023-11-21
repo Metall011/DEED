@@ -43,9 +43,19 @@
         <a href="{% url 'about' %}">Все</a>
     {% endif %}
 
-    {% show_categories sort='name' cat_selected=cat_selected %}
+    {% for cat in cats %}
+    {% if cat.deedarticles__count > 0 %}
+        {% if cat.pk == cat_selected %}
+            <a class="selected">{{ cat.name }}</a>
+        {% else %}
+            <a href="{{ cat.get_absolute_url }}">{{ cat.name }}</a>
+        {% endif %}
+    {% endif %}
+    {% endfor %}
 
-    <a href="{% url 'addpost' %}">Добавить</a>
+    {% if show_add_article %}
+        <a href="{% url 'addpost' %}">Добавить</a>
+    {% endif %}
 </div>
 
 

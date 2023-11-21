@@ -19,7 +19,9 @@ def get_categories(sort=None):
     if not sort: return Category.objects.all()
     else: return Category.objects.order_by(sort)
 
-@register.inclusion_tag('main_deed/list_articles.html')
-def show_categories(sort=None, cat_selected=0):
-    cats = get_categories(sort)
-    return {'cats': cats, 'cat_selected': cat_selected}
+# Вместо тега используем клас DataMixin
+# Шаблон list_articles.html и тег не используются
+# @register.inclusion_tag('main_deed/list_articles.html')
+# def show_categories(sort=None, cat_selected=0):
+#     cats = get_categories(sort)
+#     return {'cats': cats, 'cat_selected': cat_selected}

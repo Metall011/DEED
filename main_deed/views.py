@@ -2,9 +2,11 @@ from django.http import HttpResponse, HttpResponseNotFound, Http404
 from django.shortcuts import render, redirect, get_object_or_404
 from django.urls import reverse_lazy
 from django.views.generic import ListView, DetailView, CreateView, FormView
+from django.contrib.auth.mixins import LoginRequiredMixin
 
 from .models import *
 from .forms import *
+from .utils import *
 
 
 def index(request):
@@ -16,22 +18,21 @@ def index(request):
     return render(request, 'main_deed/main_deed.html', context=context)
 
 
-class AboutArticles(ListView):
+class AboutArticles(DataMixin, ListView):
     model = DeedArticles
     template_name = 'main_deed/about.html'
     context_object_name = 'articles'
 
     def get_context_data(self, *, object_list=None, **kwargs):
         context = super().get_context_data(**kwargs)
-        context['title'] = 'О проекте'
-        context['cat_selected'] = 0
-        return context
+        c_def = self.get_user_context(title='О проекте')
+        return dict(list(context.items()) + list(c_def.items()))
 
     def get_queryset(self):
         return self.model.objects.filter(is_published=True)
 
 
-class CategoryArticles(ListView):
+class CategoryArticles(DataMixin, ListView):
     model = DeedArticles
     template_name = 'main_deed/about.html'
     context_object_name = 'articles'
@@ -39,15 +40,16 @@ class CategoryArticles(ListView):
 
     def get_context_data(self, *, object_list=None, **kwargs):
         context = super().get_context_data(**kwargs)
-        context['title'] = str(context['articles'][0].cat)
-        context['cat_selected'] = context['articles'][0].cat_id
-        return context
+        c_def = self.get_user_context(title=str(context['articles'][0].cat),
+                                      cat_selected=context['articles'][0].cat_id,
+                                      )
+        return dict(list(context.items()) + list(c_def.items()))
 
     def get_queryset(self):
         return self.model.objects.filter(cat__slug=self.kwargs['cat_slug'], is_published=True)
 
 
-class ShowPost(DetailView):
+class ShowPost(DataMixin, DetailView):
     model = DeedArticles
     template_name = 'main_deed/article.html'
     context_object_name = 'article'
@@ -62,28 +64,26 @@ class ShowPost(DetailView):
         }
 
         context = super().get_context_data(**kwargs)
-        context['title'] = context['article']
-        context['near_articles'] = near_articles
-
-        return context
+        c_def = self.get_user_context(title=context['article'],
+                                      near_articles=near_articles,
+                                      )
+        return dict(list(context.items()) + list(c_def.items()))
 
     def get_queryset(self):
         return self.model.objects.filter(is_published=True)
 
 
-
-class AddArticle(CreateView):
+class AddArticle(LoginRequiredMixin, DataMixin, CreateView):
     model = DeedArticles
     form_class = AddPostForm
     template_name = 'main_deed/addarticle.html'
     success_url = reverse_lazy('about')
+    login_url = reverse_lazy('login')
 
     def get_context_data(self, *, object_list=None, **kwargs):
         context = super().get_context_data(**kwargs)
-        context['title'] = 'Добавление статьи'
-        return context
-
-
+        c_def = self.get_user_context(title='Добавление статьи')
+        return dict(list(context.items()) + list(c_def.items()))
 
 
 # def addarticle(request):

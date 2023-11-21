@@ -133,6 +133,10 @@ a:hover {
     text-align: center;
 }
 
+.apps {
+  position: relative;
+  border: 2px solid blue;
+}
 
 .apps.text {
     display: inline-block;
@@ -150,10 +154,12 @@ a:hover {
 }
 
 .apps.img {
-    float: right;
+    display: inline-block;
+    float: left;
     text-align: center;
     background-color: silver;
-    vertical-align: middle
+    vertical-align: middle;
+    height: 100%;
 }
 
 .btm.left, .btm.right {
