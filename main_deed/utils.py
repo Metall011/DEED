@@ -4,6 +4,8 @@ from .models import *
 
 
 class DataMixin:
+    paginate_by = 5
+
     def get_user_context(self, **kwargs):
         context = kwargs
         cats = Category.objects.annotate(Count('deedarticles')) # изменить, сделать проверку если есть хотя бы одна статья

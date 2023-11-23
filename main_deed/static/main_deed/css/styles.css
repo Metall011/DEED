@@ -83,7 +83,7 @@ html, body {
 }
 
 
-.navbar a, .soc-net a, .categories a, .btm a {
+.navbar a, .soc-net a, .categories a, .btm a, .paginator a {
     float: none;
     display: inline-block;
     color: #f2f2f2;
@@ -108,7 +108,7 @@ a:hover {
 }
 
 
-.categories a.selected {
+.categories a.selected, .paginator a.selected {
     background-color: #fff;
     color: black;
     border-radius: 10px;
@@ -198,4 +198,7 @@ a:hover {
     border-radius: 10px;
 }
 
+.paginator {
+    text-align: center;
+}
 
