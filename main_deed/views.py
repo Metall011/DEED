@@ -26,7 +26,7 @@ class AboutArticles(DataMixin, ListView):
     def get_context_data(self, *, object_list=None, **kwargs):
         context = super().get_context_data(**kwargs)
         c_def = self.get_user_context(title='О проекте')
-        return dict(list(context.items()) + list(c_def.items()))
+        return {**context, **c_def}
 
     def get_queryset(self):
         return self.model.objects.filter(is_published=True)
@@ -43,7 +43,7 @@ class CategoryArticles(DataMixin, ListView):
         c_def = self.get_user_context(title=str(context['articles'][0].cat),
                                       cat_selected=context['articles'][0].cat_id,
                                       )
-        return dict(list(context.items()) + list(c_def.items()))
+        return {**context, **c_def}
 
     def get_queryset(self):
         return self.model.objects.filter(cat__slug=self.kwargs['cat_slug'], is_published=True)
@@ -58,16 +58,15 @@ class ShowPost(DataMixin, DetailView):
     def get_context_data(self, *, object_list=None, **kwargs):
         articles = list(self.model.objects.filter(is_published=True))
         art_index = articles.index(self.model.objects.filter(slug=self.kwargs['post_slug'])[0])
-        near_articles = {
-        'last': None if art_index == len(articles)-1 else articles[art_index+1],
-        'next': None if art_index == 0 else articles[art_index-1],
-        }
+        near_articles = {'last': None if art_index == len(articles)-1 else articles[art_index+1],
+                        'next': None if art_index == 0 else articles[art_index-1]
+                        }
 
         context = super().get_context_data(**kwargs)
         c_def = self.get_user_context(title=context['article'],
                                       near_articles=near_articles,
                                       )
-        return dict(list(context.items()) + list(c_def.items()))
+        return {**context, **c_def}
 
     def get_queryset(self):
         return self.model.objects.filter(is_published=True)
@@ -83,7 +82,7 @@ class AddArticle(LoginRequiredMixin, DataMixin, CreateView):
     def get_context_data(self, *, object_list=None, **kwargs):
         context = super().get_context_data(**kwargs)
         c_def = self.get_user_context(title='Добавление статьи')
-        return dict(list(context.items()) + list(c_def.items()))
+        return {**context, **c_def}
 
 
 # def addarticle(request):
