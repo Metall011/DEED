@@ -49,6 +49,14 @@
 {% block mainmenu %}
 <div class="navbar">
 
+{% if request.user.is_authenticated %}
+    <a href="{{ user.get_absolute_url }}"><img src="{% static 'main_deed/images/entered-profile.png' %}" />
+        <br> {{ user.username|truncatechars:5 }} </a>
+{% else %}
+    <a href="{% url 'login' %}"><img src="{% static 'main_deed/images/login.png' %}" />
+        <br> ВОЙТИ </a>
+{% endif %}
+
 {% for m in menu %}
     <a href="{% url m.url_name %}"><img src="{% static m.src_img %}" /> <br> {{ m.title }} </a>
 {% endfor %}

@@ -38,6 +38,7 @@ ALLOWED_HOSTS = ['127.0.0.1']
 # Application definition
 
 INSTALLED_APPS = [
+    'debug_toolbar',
     'main_deed.apps.MainDeedConfig',
     'django.contrib.admin',
     'django.contrib.auth',
@@ -56,6 +57,7 @@ MIDDLEWARE = [
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
+    'debug_toolbar.middleware.DebugToolbarMiddleware',
 ]
 
 ROOT_URLCONF = 'DEED.urls'
@@ -134,5 +136,17 @@ STATICFILES_DIRS = []
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
+# написан для получения слага профиля
+AUTH_USER_MODEL = 'main_deed.User'
+
 MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
 MEDIA_URL = '/media/'
+
+# Переписан в классе представлений
+# LOGIN_REDIRECT_URL = '/'
+
+
+# IP с которым работает Django Toolbarl
+INTERNAL_IPS = [
+    "127.0.0.1",
+]

@@ -83,7 +83,7 @@ html, body {
 }
 
 
-.navbar a, .soc-net a, .categories a, .btm a, .paginator a {
+.navbar a, .soc-net a, .categories a, .btm a, .paginator a, .center-a, .apps a {
     float: none;
     display: inline-block;
     color: #f2f2f2;
@@ -91,6 +91,8 @@ html, body {
     text-decoration: none;
     font-size: 12px;
 }
+
+
 
 .soc-net a {
     padding: 8px 0px;
@@ -104,11 +106,14 @@ a:hover {
 }
 
 .navbar img {
-    width: 70%;
+    width: 34px;
+    height: 34px;
+    /*max-height: 34px;*/
+    /*max-width: 34px;*/
 }
 
 
-.categories a.selected, .paginator a.selected {
+.categories a.selected, .paginator a.selected, .center-a {
     background-color: #fff;
     color: black;
     border-radius: 10px;
@@ -133,34 +138,57 @@ a:hover {
     text-align: center;
 }
 
+
 .apps {
-  position: relative;
-  border: 2px solid blue;
+    width: 100%;
 }
 
-.apps.text {
-    display: inline-block;
-    background-color: #969696;
-
+.apps a {
+    margin-left: 20px;
+    margin-right: 20px;
 }
 
-.apps a{
-    display: inline-block;
-    float: none;
-    color: #f2f2f2;
-    padding: 8px 15px;
-    text-decoration: none;
-    font-size: 20px;
-}
-
-.apps.img {
-    display: inline-block;
+.apps img {
+    display: block;
     float: left;
-    text-align: center;
-    background-color: silver;
-    vertical-align: middle;
-    height: 100%;
+    width: 40px;
 }
+
+.apps-text {
+    display: block;
+    width: 60px;
+}
+
+
+/*.apps {*/
+/*  position: relative;*/
+
+/*}*/
+
+/*.apps.text {*/
+/*    display: inline-block;*/
+
+/*}*/
+
+/*!*.apps a{*!*/
+/*!*    display: block;*!*/
+/*!*    float: none;*!*/
+/*!*    color: #f2f2f2;*!*/
+/*!*    padding: 8px 15px;*!*/
+/*!*    text-decoration: none;*!*/
+/*!*    font-size: 20px;*!*/
+/*}*/
+
+/*.apps img, .apps h2, .apps p {*/
+
+/*    float: left;*/
+/*    text-align: center;*/
+/*    vertical-align: middle;*/
+/*    height: 100%;*/
+/*}*/
+
+
+
 
 .btm.left, .btm.right {
     text-align: center;
@@ -181,8 +209,13 @@ a:hover {
     width: 100px;
 }
 
-.btm-add-article {
+.btm-add-article{
     margin: 0 auto;
+    display: block;
+}
+
+.center {
+    margin-top: 50px;
     display: block;
 }
 
@@ -198,7 +231,7 @@ a:hover {
     border-radius: 10px;
 }
 
-.paginator {
+.paginator, .center {
     text-align: center;
 }
 

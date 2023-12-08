@@ -1,0 +1,29 @@
+{% extends 'main_deed/base.html' %}
+{% load static %}
+
+{% block content %}
+
+<div class="textarticle">
+    <h1 align="center">{{ profile.first_name }} {{ profile.last_name }}</h1>
+    <hr>
+    <p>{{ profile.username }}, приветствуем тебя!</p>
+
+
+    {% if profile.photo %}
+        <p align="center"><img class="img-article" src={{ profile.photo.url }}></p>
+    {% endif %}
+
+
+    <p class="date">Дата регистрации: {{ profile.date_joined }}<br>
+        Последний вход: {{ profile.last_login }}<br>
+        Права суперпользователя: {{ profile.is_superuser }}
+    </p>
+    <hr>
+    <div class="center"><a class="center-a" href="{% url 'logout' %}">Выйти из профиля</a></div>
+
+
+</div>
+
+
+
+{% endblock %}

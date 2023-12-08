@@ -1,3 +1,6 @@
+from django.contrib.auth import logout, login
+from django.contrib.auth.forms import UserCreationForm, AuthenticationForm
+from django.contrib.auth.views import LoginView
 from django.http import HttpResponse, HttpResponseNotFound, Http404
 from django.shortcuts import render, redirect, get_object_or_404
 from django.urls import reverse_lazy
@@ -29,7 +32,7 @@ class AboutArticles(DataMixin, ListView):
         return {**context, **c_def}
 
     def get_queryset(self):
-        return self.model.objects.filter(is_published=True)
+        return self.model.objects.filter(is_published=True).select_related('cat')
 
 
 class CategoryArticles(DataMixin, ListView):
@@ -40,13 +43,17 @@ class CategoryArticles(DataMixin, ListView):
 
     def get_context_data(self, *, object_list=None, **kwargs):
         context = super().get_context_data(**kwargs)
-        c_def = self.get_user_context(title=str(context['articles'][0].cat),
-                                      cat_selected=context['articles'][0].cat_id,
+        c = Category.objects.get(slug=self.kwargs['cat_slug'])
+        c_def = self.get_user_context(title=str(c.name),
+                                      cat_selected=c.pk,
                                       )
+
         return {**context, **c_def}
 
     def get_queryset(self):
-        return self.model.objects.filter(cat__slug=self.kwargs['cat_slug'], is_published=True)
+        return self.model.objects.filter(cat__slug=self.kwargs['cat_slug'],
+                                         is_published=True
+                                         ).select_related('cat')
 
 
 class ShowPost(DataMixin, DetailView):
@@ -84,7 +91,6 @@ class AddArticle(LoginRequiredMixin, DataMixin, CreateView):
         c_def = self.get_user_context(title='Добавление статьи')
         return {**context, **c_def}
 
-
 # def addarticle(request):
 #     if request.method == 'POST':
 #         form = AddPostForm(request.POST, request.FILES)
@@ -103,13 +109,54 @@ class AddArticle(LoginRequiredMixin, DataMixin, CreateView):
 #     return render(request, 'main_deed/addarticle.html', context=context)
 
 
-def account_login(request):
-    context = {
-        'title': 'Войти',
-    }
 
-    return render(request, 'main_deed/login.html', context=context)
+# Авторизация и регистрация пользователя
 
+class RegUser(DataMixin, CreateView):
+    form_class = RegUserForm
+    template_name = 'main_deed/registration.html'
+    success_url = reverse_lazy('login')
+
+    def get_context_data(self, *, object_list=None, **kwargs):
+        context = super().get_context_data(**kwargs)
+        c_def = self.get_user_context(title='Регистрация')
+        return {**context, **c_def}
+
+    def form_valid(self, form):
+        user = form.save()
+        login(self.request, user)
+        return redirect('main')
+
+class LoginUser(DataMixin, LoginView):
+    form_class = AuthForm
+    template_name = 'main_deed/login.html'
+
+    def get_context_data(self, *, object_list=None, **kwargs):
+        context = super().get_context_data(**kwargs)
+        c_def = self.get_user_context(title='Авторизация')
+        return {**context, **c_def}
+
+    def get_success_url(self):
+        return reverse_lazy('main')
+
+
+def logout_user(request):
+    logout(request)
+    return redirect('login')
+
+class ShowProfile(DetailView):
+    model = User
+    template_name = 'main_deed/profile.html'
+    context_object_name = 'profile'
+    pk_url_kwarg = 'user_pk'
+
+    def get_context_data(self, *, object_list=None, **kwargs):
+        context = super().get_context_data(**kwargs)
+
+        return context
+
+    def get_queryset(self):
+        return self.model.objects.filter(pk=self.kwargs['user_pk'])
 
 def pageNotFound(request, exception):
     return redirect('main', permanent=True)

@@ -7,7 +7,7 @@
         <h1 align="center">{{ title }}</h1>
         <hr>
 
-        <form class="textarticle" method="post">
+        <form class="textarticle" method="post" enctype="multipart/form-data">
             {% csrf_token %}
 
             <div class="form-error">{{ form.non_field_errors }}</div>
@@ -19,12 +19,9 @@
             <div class="form-error">{{ f.errors }}</div>
             {% endfor %}
 
-            <button class="btm-add-article" type="submit">Войти</button>
+            <button class="btm-add-article" type="submit">Регистрация</button>
 
         </form>
-
-            <div class="center"><a class="center-a" href="{% url 'register' %}">Регистрация</a></div>
-
 
     </div>
 

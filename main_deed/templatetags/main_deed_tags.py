@@ -1,4 +1,6 @@
 from django import template
+
+
 from main_deed.models import *
 
 register = template.Library()
@@ -6,7 +8,6 @@ register = template.Library()
 @register.simple_tag()
 def get_menu():
     menu = [
-        {'title': 'ВОЙТИ', 'url_name': 'login', 'src_img': 'main_deed/images/login.png'},
         {'title': 'DEED', 'url_name': 'main', 'src_img': 'main_deed/images/deed.png'},
         {'title': 'О НАС', 'url_name': 'about', 'src_img': 'main_deed/images/about.png'},
     ]
