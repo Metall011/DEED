@@ -1,0 +1,42 @@
+{% extends 'main_deed/base.html' %}
+
+
+{% block content %}
+
+
+<div class="textarticle">
+
+        <h1 align="center">Обратная связь</h1>
+        <hr>
+
+        <form class="textarticle" method="post">
+            {% csrf_token %}
+
+            <div class="form-error">{{ form.non_field_errors }}</div>
+
+            {% for f in form %}
+                <p><label class="form-label" for="{{ f.id_for_label }}">
+                    {{ f.label }}: </label>{{ f }}
+                </p>
+            <div class="form-error">{{ f.errors }}</div>
+            {% endfor %}
+
+            <p>На данный момент "Обратная связь" не отправляет сообщения</p>
+
+            <button class="btm-add-article" type="submit">Отправить</button>
+
+        </form>
+
+    </div>
+
+
+
+
+
+
+
+
+
+
+
+{% endblock %}

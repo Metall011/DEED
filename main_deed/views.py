@@ -144,6 +144,7 @@ def logout_user(request):
     logout(request)
     return redirect('login')
 
+
 class ShowProfile(DetailView):
     model = User
     template_name = 'main_deed/profile.html'
@@ -157,6 +158,18 @@ class ShowProfile(DetailView):
 
     def get_queryset(self):
         return self.model.objects.filter(pk=self.kwargs['user_pk'])
+
+
+# Класс "обратной связи" не сохраняет сообщения
+class ContactForm(FormView):
+    form_class = ContactForm
+    template_name = 'main_deed/ContactForm.html'
+    success_url = reverse_lazy('main')
+
+    def form_valid(self, form):
+        print(form.cleaned_data)
+        return redirect('main')
+
 
 def pageNotFound(request, exception):
     return redirect('main', permanent=True)

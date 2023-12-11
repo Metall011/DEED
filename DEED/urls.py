@@ -24,7 +24,7 @@ from main_deed.views import *
 urlpatterns = [
     path('admin/', admin.site.urls),
     path('', include('main_deed.urls')),
-
+    path('captcha/', include('captcha.urls')),
 ]
 
 

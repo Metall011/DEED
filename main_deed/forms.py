@@ -3,6 +3,8 @@ from django.contrib.auth.models import User
 from django.core.exceptions import ValidationError
 from django.contrib.auth.forms import UserCreationForm, AuthenticationForm
 from .models import *
+from captcha.fields import CaptchaField
+
 
 class AddPostForm(forms.ModelForm):
     def __init__(self, *args, **kwargs):
@@ -50,6 +52,7 @@ class RegUserForm(UserCreationForm):
                                 widget=forms.PasswordInput(attrs={'class': 'form-input'}))
     password2 = forms.CharField(label='Пароль',
                                 widget=forms.PasswordInput(attrs={'class': 'form-input'}))
+    captcha = CaptchaField()
 
     class Meta:
         model = User
@@ -62,3 +65,11 @@ class AuthForm(AuthenticationForm):
                                widget=forms.TextInput(attrs={'class': 'form-input'}))
     password = forms.CharField(label='Пароль',
                                widget=forms.PasswordInput(attrs={'class': 'form-input'}))
+
+    captcha = CaptchaField()
+
+class ContactForm(forms.Form):
+    name = forms.CharField(label='Имя', max_length=50)
+    email = forms.EmailField(label='Email')
+    content = forms.CharField(label='Сообщение', widget=forms.Textarea(attrs={'cols': 40, 'rows': 10}))
+    captcha = CaptchaField()

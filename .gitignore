@@ -4,6 +4,7 @@
 *.pyc
 __pycache__
 db.sqlite3
+deed_cache
 # media !елсли захочу чтобы незагружалось медиа файлы, то раскоментить!#
 
 # Backup files # 
