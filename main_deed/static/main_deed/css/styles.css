@@ -18,6 +18,12 @@ html, body {
   color: black;
 }
 
+#content-block {
+    max-width: 800px;
+    margin-left: auto;
+    margin-right: auto;
+}
+
 .main {
     padding-bottom: 70px;
 }
