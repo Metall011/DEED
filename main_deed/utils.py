@@ -17,7 +17,7 @@ class DataMixin:
             cache.set('cats', cats, 60)
 
         context['cats'] = cats
-        context['show_add_article'] = self.request.user.is_authenticated
+        context['show_add_article'] = self.request.user.is_staff
         if 'cat_selected' not in context:
             context['cat_selected'] = 0
 

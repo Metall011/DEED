@@ -32,7 +32,7 @@ SECRET_KEY = os.environ.get('SECRET_KEY')
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = ['127.0.0.1']
+ALLOWED_HOSTS = ['127.0.0.1', '164.92.128.124', 'deed.lol', '.deed.lol', 'localhost']
 
 
 # Application definition
@@ -90,6 +90,10 @@ DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.sqlite3',
         'NAME': BASE_DIR / 'db.sqlite3',
+        'USER': 'vladimir',
+        'PASSWORD': os.environ.get('DATABASE_KEY'),
+        'HOST': 'localhost',
+        'PORT': '',
     }
 }
 

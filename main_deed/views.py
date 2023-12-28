@@ -5,7 +5,7 @@ from django.http import HttpResponse, HttpResponseNotFound, Http404
 from django.shortcuts import render, redirect, get_object_or_404
 from django.urls import reverse_lazy
 from django.views.generic import ListView, DetailView, CreateView, FormView
-from django.contrib.auth.mixins import LoginRequiredMixin
+from django.contrib.auth.mixins import LoginRequiredMixin, PermissionRequiredMixin
 
 from .models import *
 from .forms import *
@@ -79,7 +79,8 @@ class ShowPost(DataMixin, DetailView):
         return self.model.objects.filter(is_published=True)
 
 
-class AddArticle(LoginRequiredMixin, DataMixin, CreateView):
+class AddArticle(PermissionRequiredMixin, DataMixin, CreateView):
+    permission_required = 'user.is_staff'
     model = DeedArticles
     form_class = AddPostForm
     template_name = 'main_deed/addarticle.html'

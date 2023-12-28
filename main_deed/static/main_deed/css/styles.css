@@ -93,11 +93,6 @@ html, body {
 }
 
 
-
-.soc-net a {
-    padding: 8px 0px;
-}
-
 a:hover {
     background-color: #f5cf00;
     color: black;
@@ -127,11 +122,14 @@ a:hover {
     text-align: center;
 }
 
-
-.soc-net  img {
-    width: 40%;
+.soc-net img {
+    width: 40px;
 }
 
+.soc-net a {
+    padding: 8px 0px;
+    width: 60px;
+}
 
 .headimg img {
     width: 100%;

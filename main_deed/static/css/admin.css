@@ -1,0 +1,49 @@
+#header, #content-main caption,  #changelist-filter h2, .inline-group h2, div.breadcrumbs,
+#nav-sidebar > div.app-auth.module, #nav-sidebar > div.app-main_deed.module {
+    background-color: #434343;
+}
+
+#content, #content-start {
+    background-color: #353535;
+}
+
+
+#content-main caption, #content-main table, #content-main tbody, #content-related,
+.module, #changelist-filter h2, #changelist-filter, p.paginator, #toolbar {
+    border-radius: 10px;
+}
+
+
+table, th, td{
+    border-radius: 10px;
+    background-color: #232323;
+}
+
+div#changelist.module.filtered, nav#nav-sidebar.sticky, #toggle-nav-sidebar {
+    background-color: #353535;
+    border-radius: 0px;
+}
+
+
+#changelist-form > div.actions{
+    border-radius: 10px;
+    box-shadow: none;
+    background: #373737;
+
+}
+
+#nav-sidebar > div.app-main_deed.module.current-app > table > caption {
+    border-radius: 10px;
+    background-color: #434343;
+}
+
+#nav-sidebar > div.app-auth.module > table > caption{
+    border-radius: 10px;
+    background-color: #444444;
+}
+
+
+#changelist > div, p.paginator {
+    background: #373737;
+}
+
