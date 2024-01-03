@@ -1,5 +1,5 @@
 <p align="center">
-      <img src="https://i.ibb.co/NFc3ZHt/deed-full.png" width="726">
+      <img src="https://deed.lol/static/main_deed/images/deed_full.png" width="726">
 </p>
 
 <p align="center">
@@ -11,7 +11,7 @@
 ## About
 - [Перейти на сайт deed.lol](http://deed.lol/)
 
-Создаю WebView приложение, в котором будет несколько полезных мини-приложений.
+Создаю PWA приложение, в котором будет несколько полезных мини-приложений.
 Одной из первых фич будет изучение английский слов с помощью карточек.
 
 ## Documentation
