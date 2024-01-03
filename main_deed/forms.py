@@ -10,6 +10,7 @@ class AddPostForm(forms.ModelForm):
     def __init__(self, *args, **kwargs):
         super().__init__(*args, **kwargs)
         self.fields['cat'].empty_label = 'Выбрать категорию'
+        self.fields['photo'].label ='Фото < 5МБ'
 
     class Meta:
         model = DeedArticles
@@ -44,7 +45,7 @@ class RegUserForm(UserCreationForm):
     date_birth = forms.DateField(label='Рождение',
                              widget=forms.DateInput(attrs={'class': 'form-input', 'type':'date',
                                                            'min': '1900-01-01'}))
-    photo = forms.ImageField(label='Фото',
+    photo = forms.ImageField(label='Фото < 5МБ',
                              widget=forms.FileInput(attrs={'class': 'form-input'}))
     username = forms.CharField(label='Логин',
                                widget=forms.TextInput(attrs={'class': 'form-input'}))
@@ -70,6 +71,8 @@ class AuthForm(AuthenticationForm):
 
 class ContactForm(forms.Form):
     name = forms.CharField(label='Имя', max_length=50)
-    email = forms.EmailField(label='Email')
-    content = forms.CharField(label='Сообщение', widget=forms.Textarea(attrs={'cols': 40, 'rows': 10}))
+    email = forms.EmailField(label='Email', max_length=100)
+    content = forms.CharField(label='Сообщение', max_length=5000,
+                              widget=forms.Textarea(attrs={'cols': 40, 'rows': 10})
+                              )
     captcha = CaptchaField()

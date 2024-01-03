@@ -22,6 +22,7 @@ html, body {
     max-width: 800px;
     margin-left: auto;
     margin-right: auto;
+
 }
 
 .main {
@@ -148,48 +149,28 @@ a:hover {
 }
 
 .apps a {
+    display: block;
     margin-left: 20px;
     margin-right: 20px;
+    margin-top: 10px;
+    align-content: center;
 }
 
 .apps img {
-    display: block;
     float: left;
-    width: 40px;
-}
-
-.apps-text {
     display: block;
-    width: 60px;
+    max-width: 40px;
+    margin-top: auto;
+    margin-bottom: auto;
+}
+
+.apps h2 {
+    float: left;
+    margin-top: auto;
+    margin-bottom: auto;
 }
 
 
-/*.apps {*/
-/*  position: relative;*/
-
-/*}*/
-
-/*.apps.text {*/
-/*    display: inline-block;*/
-
-/*}*/
-
-/*!*.apps a{*!*/
-/*!*    display: block;*!*/
-/*!*    float: none;*!*/
-/*!*    color: #f2f2f2;*!*/
-/*!*    padding: 8px 15px;*!*/
-/*!*    text-decoration: none;*!*/
-/*!*    font-size: 20px;*!*/
-/*}*/
-
-/*.apps img, .apps h2, .apps p {*/
-
-/*    float: left;*/
-/*    text-align: center;*/
-/*    vertical-align: middle;*/
-/*    height: 100%;*/
-/*}*/
 
 
 
