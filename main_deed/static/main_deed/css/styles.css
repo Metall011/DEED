@@ -110,8 +110,6 @@ a:hover {
 .navbar img {
     width: 34px;
     height: 34px;
-    /*max-height: 34px;*/
-    /*max-width: 34px;*/
 }
 
 
@@ -146,14 +144,15 @@ a:hover {
 
 .apps {
     width: 100%;
+    padding-top: 10px;
 }
 
 .apps a {
-    display: block;
+    display: flex;
     margin-left: 20px;
     margin-right: 20px;
-    margin-top: 10px;
     align-content: center;
+    min-height: 80px;
 }
 
 .apps img {
@@ -165,12 +164,12 @@ a:hover {
 }
 
 .apps h2 {
-    float: left;
-    margin-top: auto;
-    margin-bottom: auto;
+    margin-bottom: 5px;
 }
 
-
+.apps p {
+    margin-top: 0;
+}
 
 
 
