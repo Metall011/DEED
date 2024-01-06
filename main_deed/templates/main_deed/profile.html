@@ -14,8 +14,9 @@
     {% endif %}
 
 
-    <p class="date">Дата регистрации: {{ profile.date_joined }}<br>
-        Последний вход: {{ profile.last_login }}<br>
+    <p class="date">
+        Дата рождения: {{ profile.date_birth }}<br>
+        Дата регистрации: {{ profile.date_joined }}<br>
         Права администратора: {{ profile.is_superuser }}
     </p>
     <hr>

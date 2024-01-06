@@ -1,12 +1,21 @@
 from django.contrib import admin
-from django.contrib.auth.admin import UserAdmin
 from django.utils.safestring import mark_safe
+from django.contrib.auth.admin import UserAdmin as BaseUserAdmin
 
 from .models import *
 
+from django.utils.translation import gettext_lazy as _
+
+class ShowPhotoMixin:
+    def get_html_photo(self, object):
+        if object.photo:
+            return mark_safe(f"<img src='{object.photo.url}' width=50>")
+
+    get_html_photo.short_description = 'Миниатюра'
+
 # Register your models here.
 
-class DeedArticlesAdmin(admin.ModelAdmin):
+class DeedArticlesAdmin(admin.ModelAdmin, ShowPhotoMixin):
     list_display = ('id', 'title', 'time_create', 'get_html_photo', 'is_published', 'cat')
     list_display_links = ('id', 'title')
     search_fields = ('title', 'content')
@@ -20,17 +29,36 @@ class DeedArticlesAdmin(admin.ModelAdmin):
               )
     save_on_top = True
 
-    def get_html_photo(self, object):
-        if object.photo:
-            return mark_safe(f"<img src='{object.photo.url}' width=50>")
 
-    get_html_photo.short_description = 'Миниатюра'
+class UserAdmin(BaseUserAdmin, ShowPhotoMixin):
+    list_display = ('id', 'username', 'get_html_photo', 'first_name', 'last_name', 'is_staff',)
+    list_display_links = ('id', 'username')
+    fieldsets = (
+        (None, {"fields": ("username", "password", "get_html_photo", "photo")}),
+        (_("Personal info"), {"fields": ("first_name", "last_name", "email", "date_birth")}),
+        (
+            _("Permissions"),
+            {
+                "fields": (
+                    "is_active",
+                    "is_staff",
+                    "is_superuser",
+                    "groups",
+                    "user_permissions",
+                ),
+            },
+        ),
+        (_("Important dates"), {"fields": ("last_login", "date_joined")}),
+    )
+    readonly_fields = ('get_html_photo', 'date_joined', 'last_login')
+
 
 class CategoryAdmin(admin.ModelAdmin):
     list_display = ('id', 'name')
     list_display_links = ('id', 'name')
     search_fields = ('name',)
     prepopulated_fields = {'slug': ('name',)}
+
 
 admin.site.register(DeedArticles, DeedArticlesAdmin)
 admin.site.register(Category, CategoryAdmin)
