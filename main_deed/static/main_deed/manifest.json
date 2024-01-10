@@ -1,0 +1,58 @@
+{
+    "theme_color": "#333333",
+    "background_color": "#333333",
+    "display": "standalone",
+    "scope": "/",
+    "start_url": "/",
+    "name": "DEED",
+    "short_name": "DEED",
+    "description": "skills application",
+    "icons": [
+        {
+            "src": "/static/main_deed/images/icon_for_pwa/icon-192x192.png",
+            "sizes": "192x192",
+            "type": "image/png"
+        },
+        {
+            "src": "/static/main_deed/images/icon_for_pwa/icon-256x256.png",
+            "sizes": "256x256",
+            "type": "image/png"
+        },
+        {
+            "src": "/static/main_deed/images/icon_for_pwa/icon-384x384.png",
+            "sizes": "384x384",
+            "type": "image/png"
+        },
+        {
+            "src": "/static/main_deed/images/icon_for_pwa/icon-512x512.png",
+            "sizes": "512x512",
+            "type": "image/png"
+        }
+    ],
+    "screenshots": [
+    {
+      "src": "/static/main_deed/images/icon_for_pwa/screen-about-750x1334.png",
+      "type": "image/png",
+      "sizes": "750x1334",
+      "form_factor": "wide"
+    },
+    {
+      "src": "/static/main_deed/images/icon_for_pwa/screen-profile-750x1334.png",
+      "type": "image/jpg",
+      "sizes": "750x1334",
+      "form_factor": "wide"
+    },
+    {
+      "src": "/static/main_deed/images/icon_for_pwa/screen-main-750x1334.png",
+      "type": "image/jpg",
+      "sizes": "750x1334",
+      "form_factor": "wide"
+    },
+    {
+      "src": "/static/main_deed/images/icon_for_pwa/screen-news-750x1334.png",
+      "type": "image/jpg",
+      "sizes": "750x1334",
+      "form_factor": "narrow"
+    }
+  ]
+}

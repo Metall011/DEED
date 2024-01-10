@@ -10,8 +10,9 @@
           content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <title>{{ title }}</title>
-    <link rel="stylesheet" type="text/css", href="{% static 'main_deed/css/styles.css' %}" />
+    <link rel="stylesheet" type="text/css" href="{% static 'main_deed/css/styles.css' %}" />
     <link rel="shortcut icon" href="{% static 'main_deed/images/main.ico' %}">
+    <link rel="manifest" href="{% static 'main_deed/manifest.json' %}">
 </head>
 <body>
 
@@ -63,6 +64,7 @@
         {% endfor %}
     </div>
 {% endblock %}
+
 
 
 
