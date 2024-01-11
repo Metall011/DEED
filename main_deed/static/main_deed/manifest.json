@@ -24,6 +24,12 @@
             "type": "image/png"
         },
         {
+            "src": "/static/main_deed/images/icon_for_pwa/icon-512x512-makestable.png",
+            "sizes": "512x512",
+            "type": "image/png",
+            "purpose": "maskable"
+        },
+        {
             "src": "/static/main_deed/images/icon_for_pwa/icon-512x512.png",
             "sizes": "512x512",
             "type": "image/png"
