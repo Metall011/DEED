@@ -4,6 +4,15 @@
 {% block content %}
 
 <div class="apps">
+    <a href="{% url 'chatGPT' %}">
+        <img src="{% static 'main_deed/images/brain-ai.png' %}">
+        <div>
+            <h2>Чат с GPT</h2>
+            <p>Общайся с ИИ, который запоминает контекст</p>
+        </div>
+    </a>
+    <hr>
+
     <a href="#">
         <img src="{% static 'main_deed/images/grate-britan.png' %}">
         <div>
@@ -23,9 +32,7 @@
     <hr>
 </div>
 
-    <p>Данный раздел пока находится в разработке.</p>
-    
-    
+    <p>Данный раздел на стадии разработки.</p>
 
 
 {% endblock %}

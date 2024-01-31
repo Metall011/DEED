@@ -43,10 +43,21 @@ class Category(models.Model):
 
 
 # AUTH_USER_MODEL = 'my_app.MyUser'в settings.py
-# написан для получения слагов для авторизированного профиля
+# Написан для получения слагов для авторизированного профиля
 class User(AbstractUser):
     photo = models.ImageField(upload_to="users/%Y/%m/%d/", blank=True,
                               null=True, verbose_name="Фотография")
     date_birth = models.DateTimeField(blank=True, null=True, verbose_name="Дата рождения")
     def get_absolute_url(self):
         return reverse('profile', kwargs={'user_pk': self.pk})
+
+
+# Модель переписки пользователей и чат бота GPT
+class MessengeChatGpt(models.Model):
+    user = models.ForeignKey(User, on_delete=models.CASCADE)
+    messageInput = models.TextField()
+    bot_response = models.TextField()
+
+    def __str__(self):
+        return self.user.username
+

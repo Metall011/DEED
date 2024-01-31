@@ -1,0 +1,52 @@
+{% extends 'main_deed/base.html' %}
+
+{# Необходимо добавить скрипт, который будет #}
+{# показывать загрузку при отправке пост запроса #}
+{#Стиль для этого уже написан#}
+
+{% block content %}
+<script>
+window.onload = function() {
+    window.scrollTo(0, document.body.scrollHeight);
+}
+</script>
+
+<div class="textarticle">
+    <h1 align="center">ChatGPT</h1>
+    <hr>
+
+    <div class="chatbox">
+        {% for history in get_history %}
+            <div class="chatbox__message chatbox__message--user"><p>Вы: {{history.messageInput}}</p></div>
+            <div class="chatbox__message chatbox__message--bot"><p>AI: {{history.bot_response}}</p></div>
+        {% endfor %}
+        {% if messages %}
+            {% for message in messages %}
+                <div class="chatbox__message chatbox__message--bot">
+                    <p style="background-color: deeppink">
+                        Server: {{ message }} <br>
+                        Примечание: Чат основан на бесплатной библиотеке GPT4Free,
+                        поэтому могут возникать ошибки.
+                    </p>
+                </div>
+            {% endfor %}
+        {% endif %}
+    </div>
+
+    <form action="" method="post" align="center">
+        {% csrf_token %}
+        <textarea id="input-chat" rows="5" placeholder="{{request.user.first_name}}, как я могу Вам помочь?" name="userInput"></textarea>
+        <div>
+            {% if get_history %}
+                <a id="sent-chat" href="{% url 'DeleteHistoryGPT'  %}" class="center-a">Очистить историю</a>
+            {% endif %}
+            <button id="clear-chat" class="btm-add-article" type="submit">Отправить</button>
+        </div>
+    </form>
+
+</div>
+
+{% endblock content %}
+
+
+

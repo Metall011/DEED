@@ -13,6 +13,9 @@ urlpatterns = [
     path('login/', LoginUser.as_view(), name='login'),
     path('logout/', logout_user, name='logout'),
     path('register/', RegUser.as_view(), name='register'),
-    path('contact/', ContactForm.as_view(), name='contact')
+    path('contact/', ContactForm.as_view(), name='contact'),
+    # ChatGPT
+    path("chatgpt/", chatGPT, name='chatGPT'),
+    path("DeleteHistoryGPT/", DeleteHistoryGPT, name='DeleteHistoryGPT'),
 
 ]

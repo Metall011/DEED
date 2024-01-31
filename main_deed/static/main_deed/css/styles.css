@@ -26,9 +26,13 @@ html, body {
 }
 
 
-
 .main {
     padding-bottom: 70px;
+}
+
+textarea, input, select {
+    border-radius: 10px;
+    border: 0;
 }
 
 .textarticle {
@@ -48,7 +52,7 @@ html, body {
 .textarticle button {
     text-decoration: none;
     border-radius: 10px;
-    border: 0px;
+    border: 0;
 }
 
 .textarticle img {
@@ -78,7 +82,6 @@ html, body {
 
 .date {
     color: #c0c0c0;
-
 }
 
 
@@ -173,9 +176,6 @@ a:hover {
     margin-top: 0;
 }
 
-
-
-
 .btm.left, .btm.right {
     text-align: center;
     padding: 0px 25px 75px 25px;
@@ -198,6 +198,7 @@ a:hover {
 .btm-add-article{
     margin: 0 auto;
     display: block;
+    padding: 8px;
 }
 
 .center {
@@ -221,3 +222,62 @@ a:hover {
     text-align: center;
 }
 
+/*Chat style*/
+
+.chatbox {
+    border-radius: 10px;
+    padding: 20px;
+}
+.chatbox__message {
+    display: inline-block;
+    margin-bottom: 8px;
+    max-width: 85%;
+    min-width: 60%;
+}
+.chatbox__message--bot p, .chatbox__message--user p {
+    display: inline-block;
+    padding: 10px;
+    margin: 0;
+    border-radius: 10px;
+}
+.chatbox__message--user {
+    float: right;
+}
+.chatbox__message--user p {
+    background-color: #434343;
+    float: right;
+    text-align: left;
+}
+.chatbox__message--bot p {
+    background-color: #595959;
+    float: left;
+}
+#clear-chat{
+    display: inline-block;
+    float: right;
+    margin-right: 20px;
+
+}
+#sent-chat{
+    display: inline-block;
+    float: left;
+    margin-left: 20px;
+}
+#input-chat {
+    align-content: center;
+    width: 90%;
+}
+/*Пока не активен, нуже для чата, который будет показывать загрузку*/
+/*.loader {*/
+/*  border: 16px solid #f3f3f3;*/
+/*  border-top: 16px solid #3498db;*/
+/*  border-radius: 50%;*/
+/*  width: 120px;*/
+/*  height: 120px;*/
+/*  animation: spin 2s linear infinite;*/
+/*}*/
+
+/*@keyframes spin {*/
+/*  0% { transform: rotate(0deg); }*/
+/*  100% { transform: rotate(360deg); }*/
+/*}*/

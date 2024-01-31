@@ -1,6 +1,8 @@
 from django.contrib.auth import logout, login
+from django.contrib.auth.decorators import login_required
 from django.contrib.auth.forms import UserCreationForm, AuthenticationForm
 from django.contrib.auth.views import LoginView
+from django.contrib import messages
 from django.http import HttpResponse, HttpResponseNotFound, Http404
 from django.shortcuts import render, redirect, get_object_or_404
 from django.urls import reverse_lazy
@@ -11,7 +13,14 @@ from .models import *
 from .forms import *
 from .utils import *
 
+import g4f # Библионтека gpt4free
 
+
+# Переадресация на главную страницу, если ссылка не действительна
+def pageNotFound(request, exception):
+    return redirect('main', permanent=True)
+
+# Главная старница с приложениями
 def index(request):
 
     context = {
@@ -20,6 +29,8 @@ def index(request):
 
     return render(request, 'main_deed/main_deed.html', context=context)
 
+
+# Раздел "О нас", включающий посты админов
 
 class AboutArticles(DataMixin, ListView):
     model = DeedArticles
@@ -92,24 +103,6 @@ class AddArticle(PermissionRequiredMixin, DataMixin, CreateView):
         c_def = self.get_user_context(title='Добавление статьи')
         return {**context, **c_def}
 
-# def addarticle(request):
-#     if request.method == 'POST':
-#         form = AddPostForm(request.POST, request.FILES)
-#         if form.is_valid():
-#             form.save()
-#             return redirect('about')
-#             form.add_error(None, 'Ошибка добавления поста')
-#     else:
-#         form = AddPostForm()
-#
-#     context = {
-#         'title': 'Добавление статьи',
-#         'form': form
-#     }
-#
-#     return render(request, 'main_deed/addarticle.html', context=context)
-
-
 
 # Авторизация и регистрация пользователя
 
@@ -145,7 +138,7 @@ def logout_user(request):
     logout(request)
     return redirect('login')
 
-
+# Профиль пользователя
 class ShowProfile(DetailView):
     model = User
     template_name = 'main_deed/profile.html'
@@ -172,6 +165,57 @@ class ContactForm(FormView):
         return redirect('main')
 
 
-def pageNotFound(request, exception):
-    return redirect('main', permanent=True)
+# # Представление для общения с ChatGPT на основе библиотеки GPT4free
 
+def chatGPT(request):
+    # check if user is authenticated
+    if request.user.is_authenticated:
+        get_history = MessengeChatGpt.objects.filter(user=request.user)
+        if request.method == 'POST':
+            # get user input from the form
+            user_input = request.POST.get('userInput')
+            # clean input from any white spaces
+            clean_user_input = str(user_input).strip()
+            # send request with user's prompt
+            try:
+                msgs = []
+
+                for i in get_history:
+                    msgs.append({"role": "user", "content": i.messageInput})
+                    msgs.append({"role": "assistant", "content": i.bot_response})
+                msgs.append({"role": "user", "content": user_input})
+
+                bot_response = g4f.ChatCompletion.create(
+                    model=g4f.models.gpt_35_turbo, # Модель GPT
+                    messages=msgs,
+                    # provider=g4f.Provider.Liaobots, # Провайдер модели
+                )
+
+                MessengeChatGpt.objects.get_or_create(
+                    user=request.user,
+                    messageInput=clean_user_input,
+                    bot_response=bot_response,
+                )
+
+            except:
+                messages.warning(request, "Ошибка сервера, попробуйте заново или очистите историю")
+
+            return redirect(request.META['HTTP_REFERER'])
+
+        else:
+            # retrieve all messages belong to logged in user
+            context = {
+                        'get_history': get_history,
+                        'title': 'ChatGPT',
+            }
+            return render(request, 'main_deed/ChatGpt.html', context)
+    else:
+        return redirect("login")
+
+
+@login_required
+def DeleteHistoryGPT(request):
+    chatGptobjs = MessengeChatGpt.objects.filter(user = request.user)
+    chatGptobjs.delete()
+    messages.success(request, "Контекст удален")
+    return redirect(request.META['HTTP_REFERER'])
