@@ -5,7 +5,7 @@
 <p align="center">
    <img src="https://img.shields.io/badge/Python-3.9.13-green" alt="Python Version">
    <img src="https://img.shields.io/badge/Django-4.2.5-green" alt="Django Version">
-   <img src="https://img.shields.io/badge/Project-0.0.3-green" alt="Project Version">
+   <img src="https://img.shields.io/badge/Project-0.0.4-green" alt="Project Version">
 </p>
 
 ## About
