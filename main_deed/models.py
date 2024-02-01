@@ -61,3 +61,6 @@ class MessengeChatGpt(models.Model):
     def __str__(self):
         return self.user.username
 
+    class Meta:
+        verbose_name = 'Сообщение ChatGPT'
+        verbose_name_plural = 'Сообщения СhatGPT'

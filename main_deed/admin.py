@@ -60,9 +60,16 @@ class CategoryAdmin(admin.ModelAdmin):
     prepopulated_fields = {'slug': ('name',)}
 
 
+class MessengeChatGptAdmin(admin.ModelAdmin):
+    list_display = ('user', 'messageInput')
+    list_display_links = ('user', 'messageInput')
+
+
+
 admin.site.register(DeedArticles, DeedArticlesAdmin)
 admin.site.register(Category, CategoryAdmin)
 admin.site.register(User, UserAdmin)
+admin.site.register(MessengeChatGpt, MessengeChatGptAdmin)
 
 admin.site.site_title = 'Администрирование DEED'
 admin.site.site_header = 'Администрирование DEED'
