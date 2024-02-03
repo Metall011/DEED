@@ -198,7 +198,7 @@ def chatGPT(request):
                 )
 
             except:
-                messages.warning(request, "Ошибка сервера, попробуйте заново или очистите историю")
+                messages.warning(request, "Ошибка сервера, попробуйте переспросить или очистите историю.")
 
             return redirect(request.META['HTTP_REFERER'])
 
