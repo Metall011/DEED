@@ -65,8 +65,14 @@
     </div>
 {% endblock %}
 
-
-
+<script>
+    const form = document.querySelector('form');
+    form.addEventListener('submit', (ev) => {
+        const loader = document.createElement('div');
+        loader.className = "loader-line";
+        document.body.append(loader); // вставляем loader на страницу;
+    })
+</script>
 
 </body>
 </html>

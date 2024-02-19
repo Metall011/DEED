@@ -180,15 +180,17 @@ def chatGPT(request):
             try:
                 msgs = []
 
+                g4f.debug.version_check = False  # Disable automatic version checking
+
                 for i in get_history:
                     msgs.append({"role": "user", "content": i.messageInput})
                     msgs.append({"role": "assistant", "content": i.bot_response})
                 msgs.append({"role": "user", "content": user_input})
 
                 bot_response = g4f.ChatCompletion.create(
-                    model=g4f.models.gpt_35_turbo, # Модель GPT
+                    model=g4f.models.default, # Модель GPT
                     messages=msgs,
-                    # provider=g4f.Provider.Liaobots, # Провайдер модели
+                    provider=g4f.Provider.Aura, # Провайдер модели
                 )
 
                 MessengeChatGpt.objects.get_or_create(
@@ -197,7 +199,7 @@ def chatGPT(request):
                     bot_response=bot_response,
                 )
 
-            except:
+            except ZeroDivisionError:
                 messages.warning(request, "Ошибка сервера, попробуйте переспросить или очистите историю.")
 
             return redirect(request.META['HTTP_REFERER'])
