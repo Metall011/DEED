@@ -15,7 +15,6 @@ from .utils import *
 
 import g4f # Библионтека gpt4free
 
-
 # Переадресация на главную страницу, если ссылка не действительна
 def pageNotFound(request, exception):
     return redirect('main', permanent=True)
@@ -180,7 +179,7 @@ def chatGPT(request):
             try:
                 msgs = []
 
-                g4f.debug.version_check = False  # Disable automatic version checking
+                g4f.debug.version_check = True  # Disable automatic version checking
 
                 for i in get_history:
                     msgs.append({"role": "user", "content": i.messageInput})
@@ -188,9 +187,9 @@ def chatGPT(request):
                 msgs.append({"role": "user", "content": user_input})
 
                 bot_response = g4f.ChatCompletion.create(
-                    model=g4f.models.default, # Модель GPT
+                    model=g4f.models.gpt_35_long,  # Модель GPT
                     messages=msgs,
-                    provider=g4f.Provider.Aura, # Провайдер модели
+                    # provider=g4f.Provider.FreeGpt,  # Провайдер модели
                 )
 
                 MessengeChatGpt.objects.get_or_create(
@@ -199,7 +198,7 @@ def chatGPT(request):
                     bot_response=bot_response,
                 )
 
-            except ZeroDivisionError:
+            except:
                 messages.warning(request, "Ошибка сервера, попробуйте переспросить или очистите историю.")
 
             return redirect(request.META['HTTP_REFERER'])
